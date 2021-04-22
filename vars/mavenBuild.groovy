@@ -1,11 +1,12 @@
 def call(script) {
       echo "Hello Vanshika welcome to MavenBuild shared library"
    podTemplate(yaml: """
-	kind: Pod
-	metadata:
-		name: maven-pod
-        	labels:
-            		label: maven-pod
+	apiVersion: v1
+        kind: Pod
+        metadata:
+	    name: maven-pod
+          labels:
+            some-label: maven-pod
         spec:
           containers:
           - name: maven
@@ -18,7 +19,7 @@ def call(script) {
             command:
             - cat
             tty: true
-        """.stripIndent()) {
+        """.stripIndent())
        node (maven-pod){
 	  
            stage("Tools initialization") {
@@ -64,4 +65,4 @@ def call(script) {
            }
 	   
        }
-   }}
+   }
