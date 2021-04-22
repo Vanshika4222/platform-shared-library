@@ -1,25 +1,7 @@
 def call(script) {
    echo "Hello Vanshika welcome to MavenBuild shared library"
-   podTemplate(yaml: """\
-	apiVersion: v1
-        kind: Pod
-        metadata:
-	    name: maven-pod
-          labels:
-            some-label: maven-pod
-        spec:
-          containers:
-          - name: maven
-            image: maven:alpine
-            command:
-            - cat
-            tty: true
-          - name: busybox
-            image: busybox
-            command:
-            - cat
-            tty: true
-        """.stripIndent())
+	containerTemplate(name: 'maven', image: 'maven:alpine', ttyEnabled: true)
+	podTemplate(label: maven-pod, containers: maven, serviceAccount: 'jenkins') {
 
        node (maven-pod){
 	  
