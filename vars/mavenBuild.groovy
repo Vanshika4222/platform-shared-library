@@ -14,15 +14,10 @@ def call(script) {
 		    command:
 		    - cat
 		    tty: true
-		  - name: busybox
-		    image: busybox
-		    command:
-		    - cat
-		    tty: true
 		""".stripIndent()){
 
-       node (maven-pod){
-	  
+       node('maven-pod'){
+	 container('maven'){
            stage("Tools initialization") {
                    sh "mvn --version"
                    sh "java -version"
@@ -65,4 +60,4 @@ def call(script) {
                    sh "mvn package -DskipTests"
            }
 	   
-       }}}
+	 }}}}
