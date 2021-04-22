@@ -17,7 +17,7 @@ def call(script) {
             command:
             - cat
             tty: true
-        """.stripIndent())
+        """.stripIndent()) {
        node (maven-pod){
 	  
            stage("Tools initialization") {
@@ -63,4 +63,4 @@ def call(script) {
            }
 	   
        }
-   }
+   }}
