@@ -1,4 +1,4 @@
-
+def call(script) {
    echo "Hello Vanshika welcome to MavenBuild shared library"
    podTemplate(yaml: """
 	apiVersion: v1
@@ -20,7 +20,7 @@
             - cat
             tty: true
         """.stripIndent()){
-def call(script) {
+
        node (maven-pod){
 	  
            stage("Tools initialization") {
