@@ -19,7 +19,7 @@ def call(script) {
             command:
             - cat
             tty: true
-        """.stripIndent()){
+        """.stripIndent())
 
        node (maven-pod){
 	  
@@ -66,4 +66,3 @@ def call(script) {
            }
 	   
        }}
-   }
