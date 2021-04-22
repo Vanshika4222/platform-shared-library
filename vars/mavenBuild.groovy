@@ -1,11 +1,13 @@
 def call(script) {
    echo "Hello Vanshika welcome to MavenBuild shared library"
-	containerTemplate(name: 'maven', image: 'maven:alpine', ttyEnabled: true)
-	podTemplate(label: maven-pod, containers: maven, serviceAccount: 'jenkins') {
+def containers = [
+    containerTemplate(name: 'node', image: 'node', ttyEnabled: true),
+    containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true)]
+podTemplate(label: maven-pod, containers: maven, serviceAccount: 'jenkins') {
 
 	       node (maven-pod){
 
-		   stage("Tools initialization") {
+		 stage("Tools initialization") {
 			   sh "mvn --version"
 			   sh "java -version"
 		   }
@@ -15,10 +17,10 @@ def call(script) {
 			       url: script.env.GIT_SOURCE_URL
 		   }
 
-		   stage("Cleaning workspace") {
+		 stage("Cleaning workspace") {
 			   sh "mvn clean"
 		   }
-		   stage("Compiling") {
+		 stage("Compiling") {
 			   sh "mvn compile"
 		   }
 		   if(script.env.CODE_QUALITY == 'True'){
@@ -27,7 +29,7 @@ def call(script) {
 			 }
 		   }
 		   if(script.env.UNIT_TESTING == 'True'){
-		   stage("Running Testcase") {
+		 stage("Running Testcase") {
 			   sh "mvn test"
 		   }
 		   }
