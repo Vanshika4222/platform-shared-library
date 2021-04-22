@@ -1,8 +1,7 @@
 def call(script) {
       echo "Hello Vanshika welcome to MavenBuild shared library"
-   podTemplate(yaml """
-        apiVersion: v1
-        kind: Pod
+   podTemplate(yaml: """
+	kind: Pod
         metadata:
           labels:
             some-label: maven-pod
