@@ -1,5 +1,5 @@
-def call(script) {
-      echo "Hello Vanshika welcome to MavenBuild shared library"
+
+   echo "Hello Vanshika welcome to MavenBuild shared library"
    podTemplate(yaml: """
 	apiVersion: v1
         kind: Pod
@@ -19,7 +19,8 @@ def call(script) {
             command:
             - cat
             tty: true
-        """.stripIndent())
+        """.stripIndent()){
+def call(script) {
        node (maven-pod){
 	  
            stage("Tools initialization") {
@@ -64,5 +65,5 @@ def call(script) {
                    sh "mvn package -DskipTests"
            }
 	   
-       }
+       }}
    }
