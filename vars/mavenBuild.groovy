@@ -1,33 +1,26 @@
 def call(script) {
-   echo "Hello Vanshika welcome to MavenBuild shared library"
-	   podTemplate(yaml: """
-		apiVersion: v1
-		kind: Pod
-		metadata:
-		    name: maven-pod
-		  labels:
-		    some-label: maven-pod
-		spec:
-		  containers:
-		  - name: maven
-		    image: maven:alpine
-		    command:
-		    - cat
-		    tty: true
-		""".stripIndent()){
-
-       node('maven-pod'){
-	 container('maven'){
+      echo "Hello Vanshika welcome to MavenBuild shared library"
+	def label = "kubernetes"
+	podTemplate(label: label,
+  containers: [containerTemplate(name: 'maven', image: 'maven:alpine', ttyEnabled: true, command: 'cat')]
+  )
+	{
+       node(label) {
+	   
+	  
            stage("Tools initialization") {
-                   sh "mvn --version"
-                   sh "java -version"
-           }
-	       
+		   container('maven')
+	       {
+		       stage('maven ini'){
+			   sh "mvn --version"
+			   sh "java -version"
+		       }
+	       }
+	       }   
          stage("Checkout Code") {
                    git branch: 'master',
                        url: script.env.GIT_SOURCE_URL
            }
-
 	   stage("Cleaning workspace") {
                    sh "mvn clean"
            }
@@ -59,5 +52,6 @@ def call(script) {
            stage("Packaging Application") {
                    sh "mvn package -DskipTests"
            }
-	   
-	 }}}}
+       }
+   }
+}
