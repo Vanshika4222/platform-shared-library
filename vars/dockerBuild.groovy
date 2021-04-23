@@ -3,7 +3,8 @@ def call(script) {
           echo "Hello Vanshika welcome to MavenBuild shared library"
 	def label = "Dockerkubernetes"
 	podTemplate(label: label,
-  containers: [containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat')]
+  containers: [containerTemplate(name: 'maven', image: 'maven:alpine', ttyEnabled: true, command: 'cat')],
+  volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
   )
 	{
        node(label) {
