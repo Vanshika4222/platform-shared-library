@@ -2,8 +2,13 @@ def call(Map config=[:],script) {
     // Any valid steps can be called from this code, just like in other
     // Scripted Pipeline
     echo "Hello ${config.name}"
-   
-    node {
+    echo "Hello Vanshika welcome to nodeBuild shared library"
+	def label = "Nodekubernetes"
+	podTemplate(label: label,
+  containers: [containerTemplate(name: 'node', image: 'node', ttyEnabled: true, command: 'cat')]
+  )
+	{
+       node(label) {
         git url: script.env.GIT_SOURCE_URL
         
         stage("Install") {
