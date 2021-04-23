@@ -1,10 +1,15 @@
 def call(script) {
       
-      echo "Hello welcome to dockerBuild shared library"
-   
-       node {
-
-        
+          echo "Hello Vanshika welcome to MavenBuild shared library"
+	def label = "Dockerkubernetes"
+	podTemplate(label: label,
+  containers: [containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat')]
+  )
+	{
+       node(label) {
+	   
+	  container('docker')
+	       {
              stage("Checkout Code") {
                    git branch: 'master',
                        url: script.env.GIT_SOURCE_URL
@@ -24,4 +29,4 @@ def call(script) {
               }
              }              
     }
-  }
+       }}
