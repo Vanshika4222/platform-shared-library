@@ -9,6 +9,7 @@ def call(Map config=[:],script) {
   )
 	{
        node(label) {
+	       container('node'){
         git url: script.env.GIT_SOURCE_URL
         
         stage("Install") {
@@ -45,4 +46,4 @@ def call(Map config=[:],script) {
             }
         }
     }
-}
+       }}
