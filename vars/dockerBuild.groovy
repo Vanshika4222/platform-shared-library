@@ -1,9 +1,9 @@
 def call(script) {
       
-          echo "Hello Vanshika welcome to MavenBuild shared library"
+          echo "Hello Vanshika welcome to dockerBUild shared library"
 	def label = "Dockerkubernetes"
 	podTemplate(label: label,
-  containers: [containerTemplate(name: 'maven', image: 'maven:alpine', ttyEnabled: true, command: 'cat')],
+  containers: [containerTemplate(name: 'docker', image: 'docker:latest', ttyEnabled: true, command: 'cat')],
   volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
   )
 	{
